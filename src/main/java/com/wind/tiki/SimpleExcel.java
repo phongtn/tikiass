@@ -33,7 +33,6 @@ public class SimpleExcel {
     }
 
     private Double calculatePostfixNotation(String input) {
-        System.out.println("Format " + input);
         Scanner scan = new Scanner(input.trim());
         Stack<Double> stack = new Stack<>();
         while (scan.hasNext()) {
@@ -80,11 +79,13 @@ public class SimpleExcel {
     public boolean validateCircular() {
         Set<String> key = postfixNotation.keySet();
         for (String k : key) {
+            String v = postfixNotation.get(k);
+
             for (Map.Entry<String, String> entry : postfixNotation.entrySet()) {
                 String k2 = entry.getKey();
                 String v2 = entry.getValue();
                 if (!k.equals(k2)) {
-                    if (v2.contains(k)) {
+                    if (v2.contains(k) && v.contains(k2)) {
                         System.out.println("Circular dependency between " + k + " and " + k2 + " detected ");
                         return true;
                     }
